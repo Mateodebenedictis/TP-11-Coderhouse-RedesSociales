@@ -1,0 +1,87 @@
+.barra {
+  margin-bottom: 24px;
+  position: fixed;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  top: 0;
+}
+
+.contenedor {
+  align-items: center;
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 100px;
+  flex-direction: column;
+}
+
+.foto {
+  width: 70px;
+  height: 70px;
+  border-radius: 5%;
+}
+
+.jumbotron {
+  width: 100%;
+}
+
+.titulo {
+  margin-bottom: 30px;
+  color: blue;
+}
+
+.tituloTabla {
+  color: red;
+}
+
+.tituloInput {
+  margin-top: 20px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.inputDatos {
+  width: 100%;
+}
+
+.btnEnviarProducto {
+  margin-top: 20px;
+  background-color: green;
+}
+
+.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-mensaje {
+  width: 35%;
+}
+
+.marron {
+  color: brown;
+}
+
+.azul {
+  color: blue;
+}
+
+.verde {
+  color: green;
+}
+
+.contenedor-mensajes {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0.4rem;
+}

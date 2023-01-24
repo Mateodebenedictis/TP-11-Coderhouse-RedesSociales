@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.js"></script>
+    <script type="module" src="/js/main.js" defer></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <title>TP 9 Mateo de Benedictis</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light barra">
+            <a class="navbar-brand">TP 9</a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/productos.html">Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/productosFaker.html">Productos Aleatorios</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="contenedor">
+            
+            <div class="jumbotron">
+                <div class="container">
+                    <div class="row">
+                        <h1 id="tituloUsername" class="col-10"></h1>
+                        <form class="col-2" id="formDesloguear">
+                            <input class="btn btn-warning" type="submit" value="Desloguear">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jumbotron">
+                <h1 class="titulo">Ingrese un Producto: </h1>
+                <form id="insertProducto">
+                    <p class="tituloInput">Nombre</p>
+                    <input class="inputDatos form-control" type="text" name="titulo" id="titulo" placeholder="Ingrese el nombre" required>
+                    <p class="tituloInput">Precio</p>
+                    <input class="inputDatos form-control" type="number" name="precio" id="precio" placeholder="Ingrese el precio" required>
+                    <p class="tituloInput">Foto URL</p>
+                    <input class="inputDatos form-control" type="text" name="imagen" id="imagen" placeholder="Ingrese una url de imagen" required>
+                    <input class="btn btn-success mt-4" type="submit" value="Enviar">
+                </form>
+                <hr/>
+                
+                <h3 class="tituloTabla mb-2 mt-4">Lista de Productos</h3>
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaProductos">
+                        
+                    </tbody>
+                </table>
+
+                <h3 class="tituloTabla mb-2 mt-4" id="mensajeSinProductos"></h3>
+
+            </div>
+
+            <div class="jumbotron">
+
+                <div id="porcentaje"></div>
+
+                <form id="chatForm">
+                    <input type="text" class="form-control" id="email" placeholder="email" required>
+                    <input type="text" class="form-control" id="nombre" placeholder="nombre" required>
+                    <input type="text" class="form-control" id="apellido" placeholder="apellido" required>
+                    <input type="text" class="form-control" id="edad" placeholder="edad" required>
+                    <input type="text" class="form-control" id="alias" placeholder="alias" required>
+                    <input type="text" class="form-control" id="avatar" placeholder="url avatar (foto, logo)" required>
+                    <hr/>
+                    <div id="messages" class="ml-2 contenedor-mensajes"></div>
+                    <div class="horizontal mt-2">
+                        <input type="text" class="form-control input-mensaje mr-2" id="text" class="mt-2" placeholder="Ingresá un mensaje.." required>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p class="text-center text-muted">
+            Copyright 2022 Mateo de Benedictis
+        </p>
+    </footer>
+</body>
+</html>
