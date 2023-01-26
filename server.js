@@ -5,9 +5,11 @@ const cookieParser = require('cookie-parser');
 const { Server: SocketServer } = require('socket.io');
 const { Server: HttpServer } = require('http');
 const { normalize, schema } = require('normalizr');
-const {config, configSqlite3} = require('./database/connection');
+const {config} = require('./database/connection');
 const createTables = require('./database/createTables');
+
 const productosRouter = require('./router/productos');
+const authRouter = require('./router/auth');
 
 const ContenedorArchivo = require('./containers/ContenedorArchivo');
 const ContenedorSQL = require('./containers/ContenedorSQL');
@@ -30,64 +32,15 @@ app.use(session({
     })
 }));
 
-app.get('/', (req, res) => {
-    //Verifico si existe el username en la session
-    console.log('/ route: ', req.session.username)
-    if (!req.session.username) {
-        res.sendFile(__dirname + '/public/login.html');
-    } else {
-        res.sendFile(__dirname + '/public/index.html');
-    }
-})
-
-app.post('/login', (req, res) => {
-    //Guardo el username en la session
-    req.session.username = req.body.username;
-    console.log('Login: ', req.session.username)
-    res.redirect('/');
-})
-
-app.post('/logout', (req, res) => {
-
-    req.session.destroy((err) => {
-        if (!err) {res.redirect('/');}
-        else {res.send({ status: "Logout ERROR", body: err });}
-    });
-    
-});
-
-app.get("/info", (req, res) => {
-    console.log("------------ req.session -------------");
-    console.log(req.session);
-    console.log("--------------------------------------");
-  
-    console.log("----------- req.sessionID ------------");
-    console.log(req.sessionID);
-    console.log("--------------------------------------");
-  
-    console.log("----------- req.cookies ------------");
-    console.log(req.cookies);
-    console.log("--------------------------------------");
-  
-    console.log("---------- req.sessionStore ----------");
-    console.log(req.sessionStore);
-    console.log("--------------------------------------");
-  
-    res.send("Send info ok!");
-  });
-
-
 app.use(express.static('public'));
-app.use('/api', productosRouter);
-
+app.use('/api/productos', productosRouter);
+app.use('/api/auth', authRouter);
 
 //crea las tablas correspondientes y si existen las elimina y las vuelve a crear
 createTables();
 
 const contenedorProductos = new ContenedorSQL(config, 'productos');
-
 const contenedorMensajes = new ContenedorArchivo('mensajes.txt')
-
 
 //Defining the schemas for normalizr for the messages
 
@@ -102,7 +55,6 @@ const normalizedMessages = async () => {
     let mensajes = await contenedorMensajes.getAll();
     return normalize(mensajes, [message]);
 }
-
 
 io.on('connection', async (socket) => {
 
@@ -126,10 +78,7 @@ io.on('connection', async (socket) => {
 
 });
 
-
-const port = 8080;
-
-const connectedServer = httpServer.listen(port, () => {
+const connectedServer = httpServer.listen(process.env.PORT, () => {
   console.log(`Servidor Http con Websockets escuchando en el puerto ${connectedServer.address().port}`)
 })
 connectedServer.on('error', error => console.log(`Error en servidor ${error}`));

@@ -1,3 +1,20 @@
+const mongoose = require('mongoose');
+
+const mongoDbConnection = async () => {
+    try {
+        await mongoose.connect(process.env.DB_CNN, {
+            useNewUrlParser: true, 
+            useUnifiedTopology: true, 
+            useCreateIndex: true
+        });
+        console.log('DB is connected');
+    } catch (error) {
+        console.log(error.reason);
+        console.log(error);
+        throw new Error('Error connecting to MongoDB');
+    }
+};
+
 const config = {
   client: 'mysql',
   connection: {
@@ -24,5 +41,6 @@ module.exports = {
   knexMySql,
   knexSqlite3,
   config,
-  configSqlite3
+  configSqlite3,
+  mongoDbConnection
 };
